@@ -33,12 +33,8 @@ public class Controller {
         return currentLoggedUser;
     }
 
-    public void insertPolicy(int id, String description, long cost){
-        if(db.containsPolicyId(id)){
-            System.out.print("Policy with specified id already present in the database");
-            return;
-        }
-        db.insertPolicy(id, description, cost);
+    public void insertPolicy(String description, long cost){
+        db.insertPolicy(description, cost);
     }
 
     public Policy getPolicyToWorkOn(int id){

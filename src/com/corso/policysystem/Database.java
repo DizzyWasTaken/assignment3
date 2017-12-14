@@ -1,5 +1,6 @@
 package com.corso.policysystem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 public class Database {
     //Each of these private variables represents one table of the database
     private Map<String, User> users = new HashMap<>();
-    private Map<Integer, Policy> policies = new HashMap<>();
+    private ArrayList<Policy> policies = new ArrayList<>();     //Simulates a table with an autoincrement id
 
     /**
      * Constructor
@@ -50,30 +51,22 @@ public class Database {
 
     //Policy table management methods
 
-    public void insertPolicy(int id, String description, long cost){
-        if(containsPolicyId(id)){
-            //error
-            return;
-        }
-        policies.put(id, new Policy(id, description, cost));
+    public void insertPolicy(String description, long cost){
+        Policy policy = new Policy(policies.size(), description, cost);
+        policies.add(policy);
     }
 
     public void updatePolicy(Policy policy){
         int id = policy.getId();
 
-        if(containsPolicyId(id)){
-            policies.put(id, policy);
+        if(policies.size() > id){
+            policies.set(id, policy);
         }
     }
 
     public Policy removePolicy(int id){
 
         return policies.remove(id);
-    }
-
-    public boolean containsPolicyId(int id){
-
-        return policies.containsKey(id);
     }
 
     public Policy getPolicyById(int id){
@@ -84,9 +77,8 @@ public class Database {
     //For debug
     public void printAllPolicies(){
         System.out.print("\n\n\n");
-        for (int key: policies.keySet()) {
-            System.out.println("id : " + key);
-            Policy p = policies.get(key);
+        for(Policy p : policies){
+            System.out.println("id : " + p.getId());
             System.out.println("Desc: " + p.getDescription());
             System.out.printf("Cost: €%.2f\n", p.getCost());
             System.out.print("-------------------------------\n");

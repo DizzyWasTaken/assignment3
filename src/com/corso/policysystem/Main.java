@@ -9,9 +9,9 @@ public class Main {
         Controller  controller  = new Controller(company, db);
 
         //Inserting Policies
-        controller.insertPolicy(0, "cheap", 10);
-        controller.insertPolicy(1, "business", 100);
-        controller.insertPolicy(2, "premium", 1000);
+        controller.insertPolicy("cheap", 10);
+        controller.insertPolicy("business", 100);
+        controller.insertPolicy("premium", 1000);
 
         //Register Use Case simulation
         controller.registerUser("mario.rossi@policysystem.com", "123");
