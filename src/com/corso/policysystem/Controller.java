@@ -11,16 +11,16 @@ public class Controller {
         this.db = database;
     }
 
-    public void registerUser(String email, String pwd){
-        if(db.containsEmail(email)){
-            System.out.print("Email already in use");
-            return;
-        }
-        User user = db.createAccount(email, pwd);
+    public void registerUser(String email, String password){
+        User user = new User(email, password);
+        user = db.createAccount(user);
 
         //After registering the user is logged in and redirected on the homepage
         if(user != null) {
             setCurrentLoggedUser(user);
+        }
+        else{
+            System.out.print("Email already in use");
         }
 
     }

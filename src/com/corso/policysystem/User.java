@@ -3,19 +3,19 @@ package com.corso.policysystem;
 public class User extends Notifiable{
 
     private String email;
-    private String pwd;
+    private String password;
 
-    public User(String email, String pwd){
+    public User(String email, String password){
         this.email = email;
-        this.pwd = pwd;
+        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getPassword() {
+        return password;
     }
 
     @Override

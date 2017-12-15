@@ -21,20 +21,21 @@ public class Database {
 
     //User table management methods
 
-    public User createAccount(String email, String pwd){
-        if(containsEmail(email)){
-            //error
+    public User createAccount(User user){
+        if(containsEmail(user.getEmail())){
+            //error, email already present in database
             return null;
         }
-        return users.put(email, new User(email, pwd));
+        return users.put(user.getEmail(), user);
     }
-
+/*
+    Not required for the system but can be useful
     public User getUserByEmail(String email){
 
         return users.get(email);
     }
-
-    public boolean containsEmail(String email){
+*/
+    private boolean containsEmail(String email){
 
         return users.containsKey(email);
     }
@@ -43,7 +44,7 @@ public class Database {
     public void printAllUsers(){
         for (String key: users.keySet()) {
             System.out.println("key : " + key);
-            System.out.println("value : " + users.get(key).getPwd());
+            System.out.println("value : " + users.get(key).getPassword());
         }
     }
 
@@ -52,7 +53,7 @@ public class Database {
     //Policy table management methods
 
     public void insertPolicy(String description, long cost){
-        Policy policy = new Policy(policies.size(), description, cost);
+        Policy policy = new Policy(policies.size(), description, cost); //The database has to create this object because the id is unknown beforehand
         policies.add(policy);
     }
 

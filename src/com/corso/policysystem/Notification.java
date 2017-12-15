@@ -16,8 +16,8 @@ public class Notification {
         return new Notification();
     }
 
-    public void sendTo(Notifiable n){
-        n.receiveNotification(this);
+    public void sendTo(Notifiable receiver){
+        receiver.receiveNotification(this);
     }
 
     public Notification setSender(Notifiable sender) {
