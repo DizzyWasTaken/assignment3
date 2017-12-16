@@ -13,7 +13,7 @@ public class Company extends Notifiable {
     }
 
     @Override
-    void onReceiveNotification(Notification n) {
+    protected void onReceiveNotification(Notification n) {
         super.onReceiveNotification(n);
 
         n.printContent();

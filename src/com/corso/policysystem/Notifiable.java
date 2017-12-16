@@ -18,7 +18,7 @@ public abstract class Notifiable {
         return null;
     }
 
-    void onReceiveNotification(Notification n){
+    protected void onReceiveNotification(Notification n){
     }
 
 }

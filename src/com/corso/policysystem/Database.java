@@ -52,8 +52,8 @@ public class Database {
 
     //Policy table management methods
 
-    public void insertPolicy(String description, long cost){
-        Policy policy = new Policy(policies.size(), description, cost); //The database has to create this object because the id is unknown beforehand
+    public void insertPolicy(String description, double cost){
+        Policy policy = new Policy(policies.size(), description, cost); //The database has to create this object because the id isn't known beforehand
         policies.add(policy);
     }
 

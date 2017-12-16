@@ -4,20 +4,22 @@ public class Controller {
 
     private Company company;
     private Database db;
-    private User currentLoggedUser;
+    private User currentlyLoggedUser;
 
     public Controller(Company company, Database database){
         this.company = company;
         this.db = database;
     }
 
+
+    //User management
     public void registerUser(String email, String password){
         User user = new User(email, password);
         user = db.createAccount(user);
 
         //After registering the user is logged in and redirected on the homepage
         if(user != null) {
-            setCurrentLoggedUser(user);
+            setCurrentlyLoggedUser(user);
         }
         else{
             System.out.print("Email already in use");
@@ -25,19 +27,21 @@ public class Controller {
 
     }
 
-    public void setCurrentLoggedUser(User user){
-        currentLoggedUser = user;
+    public void setCurrentlyLoggedUser(User user){
+        currentlyLoggedUser = user;
     }
 
-    public User getCurrentLoggedUser(){
-        return currentLoggedUser;
+    public User getCurrentlyLoggedUser(){
+        return currentlyLoggedUser;
     }
 
+
+    //Policy management
     public void insertPolicy(String description, long cost){
         db.insertPolicy(description, cost);
     }
 
-    public Policy getPolicyToWorkOn(int id){
+    public Policy getPolicyById(int id){
         return db.getPolicyById(id);
     }
 
@@ -52,8 +56,6 @@ public class Controller {
 
     }
 
-
-
     public void removePolicy(int id){
         if(db.removePolicy(id) == null){
             System.out.println("There is no policy with this id in the database");
@@ -62,19 +64,19 @@ public class Controller {
         System.out.println("The policy has been removed");
     }
 
-    public void buyPolicy(User user, Policy policy){
+    public void buyPolicy(Policy policy){
         //Buy policy logic
 
         Notification.prepare()
-                .setSender(user)
+                .setSender(currentlyLoggedUser)
                 .setTitle("New policy purchase")
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);
     }
 
-    public void renewPolicy(User user, Policy policy){
+    public void renewPolicy(Policy policy){
         Notification.prepare()
-                .setSender(user)
+                .setSender(currentlyLoggedUser)
                 .setTitle("New policy renewal application")
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);

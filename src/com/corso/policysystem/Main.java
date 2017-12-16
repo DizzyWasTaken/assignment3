@@ -20,7 +20,7 @@ public class Main {
         controller.registerUser("giulio.bianchi@policysystem.com", "abc");
 
         //Policy Update Use Case Simulation
-        Policy p1 = controller.getPolicyToWorkOn(0);
+        Policy p1 = controller.getPolicyById(0);
 
         p1.setDescription("premium gold");
         p1.setCost(10000);
@@ -28,7 +28,7 @@ public class Main {
         controller.updatePolicy(p1);
 
         //Notification to Company Use Case Simulation
-        controller.buyPolicy(controller.getCurrentLoggedUser(), p1);
-        controller.renewPolicy(controller.getCurrentLoggedUser(), p1);
+        controller.buyPolicy(p1);
+        controller.renewPolicy(p1);
     }
 }
