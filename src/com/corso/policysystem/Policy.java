@@ -8,9 +8,9 @@ public class Policy {
     //expiration;
 
     public Policy(int id, String description, double cost){
-        this.id = id;
-        this.description = description;
-        this.cost = cost;
+        this.id             = id;
+        this.description    = description;
+        this.cost           = cost;
     }
 
     public void setDescription(String description){

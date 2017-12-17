@@ -7,8 +7,8 @@ public class Notification {
     private String content;
 
     public Notification(){
-        sender = null;
-        title = "Title";
+        sender  = null;
+        title   = "Title";
         content = "Content";
     }
 

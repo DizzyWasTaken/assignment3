@@ -7,8 +7,9 @@ public class Controller {
     private User currentlyLoggedUser;
 
     public Controller(Company company, Database database){
-        this.company = company;
-        this.db = database;
+        this.company                = company;
+        this.db                     = database;
+        this.currentlyLoggedUser    = null;
     }
 
 
@@ -22,7 +23,7 @@ public class Controller {
             setCurrentlyLoggedUser(user);
         }
         else{
-            System.out.print("Email already in use");
+            System.out.println("Email already in use");
         }
 
     }
@@ -67,6 +68,11 @@ public class Controller {
     public void buyPolicy(Policy policy){
         //Buy policy logic
 
+        db.printAllUsers();
+        currentlyLoggedUser.setPolicy_id(policy.getId());
+        db.updateUser(currentlyLoggedUser);
+        db.printAllUsers();
+
         Notification.prepare()
                 .setSender(currentlyLoggedUser)
                 .setTitle("New policy purchase")
@@ -75,6 +81,8 @@ public class Controller {
     }
 
     public void renewPolicy(Policy policy){
+        //Policy renewal logic
+
         Notification.prepare()
                 .setSender(currentlyLoggedUser)
                 .setTitle("New policy renewal application")

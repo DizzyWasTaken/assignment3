@@ -26,6 +26,15 @@ public class Database {
             //error, email already present in database
             return null;
         }
+        users.put(user.getEmail(), user);
+        return user;
+    }
+
+    public User updateUser(User user){
+        if(!containsEmail(user.getEmail())){
+            //error, no such user
+            return null;
+        }
         return users.put(user.getEmail(), user);
     }
 /*
@@ -43,9 +52,16 @@ public class Database {
     //For debug
     public void printAllUsers(){
         for (String key: users.keySet()) {
-            System.out.println("key : " + key);
-            System.out.println("value : " + users.get(key).getPassword());
+            System.out.println("email : " + key);
+            System.out.println("password : " + users.get(key).getPassword());
+            if(users.get(key).getPolicy_id() != null){
+                System.out.println("current policy : " + users.get(key).getPolicy_id());
+            }
+            else{
+                System.out.println("no policy");
+            }
         }
+        System.out.println("Printed all users");
     }
 
     //END User table management methods
