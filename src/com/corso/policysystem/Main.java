@@ -19,7 +19,7 @@ public class Main {
 
         controller.registerUser("giulio.bianchi@policysystem.com", "abc");
 
-        //Policy Update Use Case Simulation
+        //Update Policy Use Case Simulation
         Policy p1 = controller.getPolicyById(0);
 
         p1.setDescription("premium gold");

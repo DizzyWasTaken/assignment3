@@ -51,15 +51,18 @@ public class Database {
 
     //For debug
     public void printAllUsers(){
+        System.out.print("\n\n\n");
         for (String key: users.keySet()) {
             System.out.println("email : " + key);
             System.out.println("password : " + users.get(key).getPassword());
+            System.out.print("current policy: ");
             if(users.get(key).getPolicy_id() != null){
-                System.out.println("current policy : " + users.get(key).getPolicy_id());
+                System.out.println(users.get(key).getPolicy_id());
             }
             else{
                 System.out.println("no policy");
             }
+            System.out.print("-------------------------------\n");
         }
         System.out.println("Printed all users");
     }
