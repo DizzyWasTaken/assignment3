@@ -1,11 +1,27 @@
 package com.corso.policysystem;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "policies")
 public class Policy {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "description")
     private String description;
-    private double cost;    //Symbolizes the cost of the policy
-    //expiration;
+
+    @Column(name = "cost")
+    private double cost;
+
+    @OneToMany(mappedBy = "policy")
+    private Set<User> users;
+
+    public Policy(){}
 
     public Policy(int id, String description, double cost){
         this.id             = id;

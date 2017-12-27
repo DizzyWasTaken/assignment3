@@ -1,12 +1,19 @@
 package com.corso.policysystem;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.SessionFactoryBuilder;
+import org.hibernate.boot.spi.SessionFactoryBuilderFactory;
+import org.hibernate.boot.spi.SessionFactoryBuilderImplementor;
+import org.hibernate.cfg.Configuration;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
-/**
- * Class that simulates a database, only the necessary methods to simulate the sequence diagrams are present
- */
 public class Database {
     //Each of these private variables represents one table of the database
     private Map<String, User> users = new HashMap<>();
@@ -20,7 +27,7 @@ public class Database {
     }
 
     //User table management methods
-
+/*
     public User createAccount(User user){
         if(containsEmail(user.getEmail())){
             //error, email already present in database
@@ -37,6 +44,7 @@ public class Database {
         }
         return users.put(user.getEmail(), user);
     }
+*/
 /*
     Not required for the system but can be useful
     public User getUserByEmail(String email){
@@ -44,11 +52,14 @@ public class Database {
         return users.get(email);
     }
 */
+
+/*
     private boolean containsEmail(String email){
 
         return users.containsKey(email);
     }
-
+*/
+/*
     //For debug
     public void printAllUsers(){
         System.out.print("\n\n\n");
@@ -56,8 +67,8 @@ public class Database {
             System.out.println("email : " + key);
             System.out.println("password : " + users.get(key).getPassword());
             System.out.print("current policy: ");
-            if(users.get(key).getPolicy_id() != null){
-                System.out.println(users.get(key).getPolicy_id());
+            if(users.get(key).getPolicyId() != null){
+                System.out.println(users.get(key).getPolicyId());
             }
             else{
                 System.out.println("no policy");
@@ -104,6 +115,94 @@ public class Database {
             System.out.print("-------------------------------\n");
         }
     }
-
+*/
     //END Policy table management methods
+
+
+
+    //NEW CODE
+    private static final SessionFactory ourSessionFactory;
+
+    static {
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
+
+            ourSessionFactory = configuration.buildSessionFactory();
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    private static Session getSession() throws HibernateException {
+        return ourSessionFactory.openSession();
+    }
+
+
+    //START USER MANAGEMENT METHODS
+    public String saveUser(final String email, final String password){
+        Transaction transaction = null;
+
+        try (Session session = getSession()){           //It's a try with resources, the resource between parenthesis will be closed regardless of the try-catch outcome
+            transaction = session.beginTransaction();
+            final User user = new User(email, password);
+            session.save(user);
+            transaction.commit();
+        }
+        catch (final HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        }
+
+        return email;
+    }
+
+    public User containsEmail(String email){
+        Transaction transaction = null;
+        User user               = null;
+
+        try (Session session = getSession()){
+            transaction = session.beginTransaction();
+
+            user = (User) session.get(User.class, email);       //get is useful for retrieving objects by id. if no
+                                                                // object is found it returns null
+        }
+        catch (final HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    public void listUsers(){
+        Transaction transaction = null;
+
+        try (Session session = getSession()){
+            transaction = session.beginTransaction();
+
+            final Stream<User> users = session.createQuery("from User").stream();
+
+            users.forEach((c) -> System.out.println(c.getEmail()));
+        }
+        catch (final HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateUser(){
+
+    }
+
+    public void deleteUser(){
+
+    }
+
+
+
+
+
+
 }

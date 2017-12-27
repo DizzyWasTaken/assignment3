@@ -13,6 +13,20 @@ public class Controller {
     }
 
 
+    //TODO see if it can be implemented better
+    //User management
+    public void registerUser(String email, String password){
+        if(db.containsEmail(email) == null) {
+            db.saveUser(email, password);
+            setCurrentlyLoggedUser(db.containsEmail(email));
+        }
+        else{
+            System.out.println("Email already in use");
+        }
+    }
+
+
+    /*
     //User management
     public void registerUser(String email, String password){
         User user = new User(email, password);
@@ -27,7 +41,7 @@ public class Controller {
         }
 
     }
-
+*/
     public void setCurrentlyLoggedUser(User user){
         currentlyLoggedUser = user;
     }
@@ -36,7 +50,7 @@ public class Controller {
         return currentlyLoggedUser;
     }
 
-
+/*
     //Policy management
     public void insertPolicy(String description, long cost){
         db.insertPolicy(description, cost);
@@ -47,11 +61,6 @@ public class Controller {
     }
 
     public void updatePolicy(Policy policy){
-        /*
-        if(policy == null){
-            System.out.print("No policy specified");
-            return;
-        }*/
 
         db.updatePolicy(policy);
 
@@ -69,7 +78,7 @@ public class Controller {
         //Buy policy logic
 
         db.printAllUsers();
-        currentlyLoggedUser.setPolicy_id(policy.getId());
+        currentlyLoggedUser.setPolicyId(policy.getId());
         db.updateUser(currentlyLoggedUser);
         db.printAllUsers();
 
@@ -79,7 +88,7 @@ public class Controller {
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);
     }
-
+*/
     public void renewPolicy(Policy policy){
         //Policy renewal logic
 

@@ -1,15 +1,28 @@
 package com.corso.policysystem;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User extends Notifiable{
 
+    @Id
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password", nullable = false)
     private String password;
-    private Integer policy_id;
+
+    @ManyToOne
+    @JoinColumn(name = "policy_id")
+    private Policy policy;
+
+    public User(){}
 
     public User(String email, String password){
         this.email      = email;
         this.password   = password;
-        this.policy_id  =  null;
+        this.policy =  null;
     }
 
     public String getEmail() {
@@ -20,13 +33,15 @@ public class User extends Notifiable{
         return password;
     }
 
-    public void setPolicy_id(Integer policy_id) {       //the parameter type is integer so in case of termination of the contract the policy_id can be set again to null
-        this.policy_id = policy_id;
+    public void setPolicy(Policy policy) {
+        this.policy = policy;
     }
 
-    public Integer getPolicy_id() {
-        return policy_id;
+    public Policy getPolicy() {
+        return policy;
     }
+
+
 
     @Override
     protected void onReceiveNotification(Notification n) {
