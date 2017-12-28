@@ -16,9 +16,9 @@ public class Controller {
     //TODO see if it can be implemented better
     //User management
     public void registerUser(String email, String password){
-        if(db.containsEmail(email) == null) {
+        if(db.getUserByEmail(email) == null) {
             db.saveUser(email, password);
-            setCurrentlyLoggedUser(db.containsEmail(email));
+            setCurrentlyLoggedUser(db.getUserByEmail(email));
         }
         else{
             System.out.println("Email already in use");
@@ -49,38 +49,40 @@ public class Controller {
     public User getCurrentlyLoggedUser(){
         return currentlyLoggedUser;
     }
+    //END USER MANAGEMENT
 
-/*
     //Policy management
-    public void insertPolicy(String description, long cost){
-        db.insertPolicy(description, cost);
+    public void insertPolicy(String description, double cost){
+        db.savePolicy(description, cost);
     }
 
-    public Policy getPolicyById(int id){
+    public Policy getPolicyById(Long id){
         return db.getPolicyById(id);
     }
 
-    public void updatePolicy(Policy policy){
-
-        db.updatePolicy(policy);
-
+    public void updatePolicy(Long id, String description, Double cost){
+        db.updatePolicy(id, description, cost);
     }
 
-    public void removePolicy(int id){
+    public void removePolicy(Long id){
+        db.deletePolicy(id);
+        /*
         if(db.removePolicy(id) == null){
             System.out.println("There is no policy with this id in the database");
             return;
         }
-        System.out.println("The policy has been removed");
+        System.out.println("The policy has been removed");*/
     }
 
     public void buyPolicy(Policy policy){
         //Buy policy logic
 
-        db.printAllUsers();
-        currentlyLoggedUser.setPolicyId(policy.getId());
-        db.updateUser(currentlyLoggedUser);
-        db.printAllUsers();
+
+        //TODO see if currently logged user can be handled better
+
+        db.listUsers();
+        db.updateUserPolicy(currentlyLoggedUser.getEmail(), policy);
+        db.listUsers();
 
         Notification.prepare()
                 .setSender(currentlyLoggedUser)
@@ -88,7 +90,7 @@ public class Controller {
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);
     }
-*/
+
     public void renewPolicy(Policy policy){
         //Policy renewal logic
 
@@ -97,5 +99,14 @@ public class Controller {
                 .setTitle("New policy renewal application")
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);
+    }
+
+    public void resetDB(){
+        db.clearUsers();
+        db.clearPolicy();
+    }
+
+    public void closeDBSession(){
+        db.closeSession();
     }
 }

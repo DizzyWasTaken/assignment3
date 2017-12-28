@@ -10,34 +10,28 @@ public class Policy {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "cost")
-    private double cost;
+    private Double cost;
 
     @OneToMany(mappedBy = "policy")
     private Set<User> users;
 
     public Policy(){}
 
-    public Policy(int id, String description, double cost){
-        this.id             = id;
-        this.description    = description;
-        this.cost           = cost;
-    }
-
     public void setDescription(String description){
         this.description = description;
     }
 
-    public void setCost(double cost){
+    public void setCost(Double cost){
         this.cost = cost;
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
 
@@ -45,7 +39,7 @@ public class Policy {
         return description;
     }
 
-    public double getCost(){
+    public Double getCost(){
         return cost;
     }
 

@@ -19,26 +19,28 @@ public class User extends Notifiable{
 
     public User(){}
 
-    public User(String email, String password){
-        this.email      = email;
-        this.password   = password;
-        this.policy =  null;
-    }
-
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPolicy(Policy policy) {
-        this.policy = policy;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Policy getPolicy() {
         return policy;
+    }
+
+    public void setPolicy(Policy policy) {
+        this.policy = policy;
     }
 
 

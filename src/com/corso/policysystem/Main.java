@@ -8,14 +8,15 @@ public class Main {
         Database    db          = new Database();
         Controller  controller  = new Controller(company, db);
 
-        //TODO truncate all tables at startup in order to avoid NullPointerException when calling getCurrentlyLoggedUser()
+        controller.resetDB();
 
         //Inserting Policies
-        //controller.insertPolicy("cheap", 10);
-        //controller.insertPolicy("business", 100);
-        //controller.insertPolicy("premium", 1000);
+        controller.insertPolicy("cheap", 10);
+        controller.insertPolicy("business", 100);
+        controller.insertPolicy("premium", 1000);
 
-        //Register Use Case simulation
+
+        //Register Use Case Simulation
         controller.registerUser("mario.rossi@policysystem.com", "123");
         controller.registerUser("mario.rossi@policysystem.com", "xyz");
 
@@ -23,15 +24,13 @@ public class Main {
 
         //System.out.println("Email: " + controller.getCurrentlyLoggedUser().getEmail());
         //Update Policy Use Case Simulation
-        //Policy p1 = controller.getPolicyById(0);
 
-        //p1.setDescription("premium gold");
-        //p1.setCost(10000);
+        controller.updatePolicy(102L, "premium gold", 10000D);
 
-        //controller.updatePolicy(p1);
-
-        //Notification to Company Use Case Simulation
-        //controller.buyPolicy(p1);
+        //Buy Policy Use Case Simulation
+        controller.buyPolicy(controller.getPolicyById(102L));
         //controller.renewPolicy(p1);
+
+        controller.closeDBSession();
     }
 }
