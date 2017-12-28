@@ -22,16 +22,12 @@ public class Database {
     //User table management methods
 
     public User createAccount(User user){
-        if(containsEmail(user.getEmail())){
-            //error, email already present in database
-            return null;
-        }
         users.put(user.getEmail(), user);
         return user;
     }
 
     public User updateUser(User user){
-        if(!containsEmail(user.getEmail())){
+        if(getUserByEmail(user.getEmail()) == null){
             //error, no such user
             return null;
         }
@@ -44,9 +40,9 @@ public class Database {
         return users.get(email);
     }
 */
-    private boolean containsEmail(String email){
+    public User getUserByEmail(String email){
 
-        return users.containsKey(email);
+        return users.get(email);
     }
 
     //For debug
@@ -56,8 +52,8 @@ public class Database {
             System.out.println("email : " + key);
             System.out.println("password : " + users.get(key).getPassword());
             System.out.print("current policy: ");
-            if(users.get(key).getPolicy_id() != null){
-                System.out.println(users.get(key).getPolicy_id());
+            if(users.get(key).getPolicyId() != null){
+                System.out.println(users.get(key).getPolicyId());
             }
             else{
                 System.out.println("no policy");

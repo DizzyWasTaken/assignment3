@@ -16,10 +16,10 @@ public class Controller {
     //User management
     public void registerUser(String email, String password){
         User user = new User(email, password);
-        user = db.createAccount(user);
 
         //After registering the user is logged in and redirected on the homepage
-        if(user != null) {
+        if(db.getUserByEmail(email) == null) {
+            user = db.createAccount(user);
             setCurrentlyLoggedUser(user);
         }
         else{
@@ -69,7 +69,7 @@ public class Controller {
         //Buy policy logic
 
         db.printAllUsers();
-        currentlyLoggedUser.setPolicy_id(policy.getId());
+        currentlyLoggedUser.setPolicyId(policy.getId());
         db.updateUser(currentlyLoggedUser);
         db.printAllUsers();
 

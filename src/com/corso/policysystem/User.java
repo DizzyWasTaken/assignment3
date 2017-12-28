@@ -4,12 +4,12 @@ public class User extends Notifiable{
 
     private String email;
     private String password;
-    private Integer policy_id;
+    private Integer policyId;
 
     public User(String email, String password){
         this.email      = email;
         this.password   = password;
-        this.policy_id  =  null;
+        this.policyId =  null;
     }
 
     public String getEmail() {
@@ -20,12 +20,12 @@ public class User extends Notifiable{
         return password;
     }
 
-    public void setPolicy_id(Integer policy_id) {       //the parameter type is integer so in case of termination of the contract the policy_id can be set again to null
-        this.policy_id = policy_id;
+    public void setPolicyId(Integer policyId) {       //the parameter type is integer so in case of termination of the contract the policyId can be set again to null
+        this.policyId = policyId;
     }
 
-    public Integer getPolicy_id() {
-        return policy_id;
+    public Integer getPolicyId() {
+        return policyId;
     }
 
     @Override
