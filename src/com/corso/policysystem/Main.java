@@ -25,10 +25,10 @@ public class Main {
         //System.out.println("Email: " + controller.getCurrentlyLoggedUser().getEmail());
         //Update Policy Use Case Simulation
 
-        controller.updatePolicy(102L, "premium gold", 10000D);
+        controller.updatePolicy(1L, "premium gold", 10000D);
 
         //Buy Policy Use Case Simulation
-        controller.buyPolicy(controller.getPolicyById(102L));
+        controller.buyPolicy(controller.getPolicyById(1L));
         //controller.renewPolicy(p1);
 
         controller.closeDBSession();

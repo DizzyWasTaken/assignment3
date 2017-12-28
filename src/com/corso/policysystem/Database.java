@@ -155,7 +155,9 @@ public class Database {
         try (Session session = getSession()){
             transaction = session.beginTransaction();
 
-            session.createQuery("delete from User").executeUpdate();
+            //session.createQuery("delete from User").executeUpdate();
+
+            session.createNativeQuery("TRUNCATE TABLE users").executeUpdate();
 
             transaction.commit();
         }
@@ -287,7 +289,12 @@ public class Database {
         try (Session session = getSession()){
             transaction = session.beginTransaction();
 
-            session.createQuery("delete from Policy").executeUpdate();
+            //session.createQuery("delete from Policy").executeUpdate();
+
+            session.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();        //You can't delete a table
+                                                                                              //with constrains, so we disable the checks
+            session.createNativeQuery("TRUNCATE TABLE policies").executeUpdate();
+            session.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
 
             transaction.commit();
         }
