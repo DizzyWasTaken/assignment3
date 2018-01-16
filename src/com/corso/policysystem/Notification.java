@@ -39,7 +39,7 @@ public class Notification {
     }
 
     public void printContent(){
-        System.out.print("\n\n\n");
+        System.out.println("\n\n\nYou got a notification!");
 
         if(sender instanceof User) {
             System.out.printf("From: %s\n", ((User) sender).getEmail());

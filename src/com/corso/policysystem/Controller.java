@@ -47,11 +47,6 @@ public class Controller {
     }
 
     public void updatePolicy(Policy policy){
-        /*
-        if(policy == null){
-            System.out.print("No policy specified");
-            return;
-        }*/
 
         db.updatePolicy(policy);
 
@@ -88,5 +83,9 @@ public class Controller {
                 .setTitle("New policy renewal application")
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);
+    }
+
+    public void showAllPolicies(){
+        db.printAllPolicies();
     }
 }

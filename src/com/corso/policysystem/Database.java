@@ -33,13 +33,7 @@ public class Database {
         }
         return users.put(user.getEmail(), user);
     }
-/*
-    Not required for the system but can be useful
-    public User getUserByEmail(String email){
 
-        return users.get(email);
-    }
-*/
     public User getUserByEmail(String email){
 
         return users.get(email);
@@ -47,7 +41,7 @@ public class Database {
 
     //For debug
     public void printAllUsers(){
-        System.out.print("\n\n\n");
+        System.out.println("\n\n\nDatabase log:");
         for (String key: users.keySet()) {
             System.out.println("email : " + key);
             System.out.println("password : " + users.get(key).getPassword());
@@ -61,6 +55,7 @@ public class Database {
             System.out.print("-------------------------------\n");
         }
         System.out.println("Printed all users");
+        System.out.print("-------------------------------\n");
     }
 
     //END User table management methods
@@ -92,13 +87,15 @@ public class Database {
 
     //For debug
     public void printAllPolicies(){
-        System.out.print("\n\n\n");
+        System.out.println("\n\n\nDatabase log:");
         for(Policy p : policies){
             System.out.println("id : " + p.getId());
             System.out.println("Desc: " + p.getDescription());
             System.out.printf("Cost: €%.2f\n", p.getCost());
             System.out.print("-------------------------------\n");
         }
+        System.out.println("Printed all policies");
+        System.out.print("-------------------------------\n");
     }
 
     //END Policy table management methods

@@ -13,6 +13,8 @@ public class Main {
         controller.insertPolicy("business", 100);
         controller.insertPolicy("premium", 1000);
 
+        controller.showAllPolicies();
+
         //Register Use Case simulation
         controller.registerUser("mario.rossi@policysystem.com", "123");
         controller.registerUser("mario.rossi@policysystem.com", "xyz");
@@ -27,8 +29,7 @@ public class Main {
 
         controller.updatePolicy(p1);
 
-        //Notification to Company Use Case Simulation
+        //Buy Policy Use Case Simulation
         controller.buyPolicy(p1);
-        controller.renewPolicy(p1);
     }
 }
