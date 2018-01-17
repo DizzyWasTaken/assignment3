@@ -13,6 +13,7 @@ public class Main {
         controller.insertPolicy("business", 100);
         controller.insertPolicy("premium", 1000);
 
+        controller.showAllPolicies();
 
         //Register Use Case Simulation
         controller.registerUser("mario.rossi@policysystem.com", "123");
@@ -20,14 +21,11 @@ public class Main {
 
         controller.registerUser("giulio.bianchi@policysystem.com", "abc");
 
-        //System.out.println("Email: " + controller.getCurrentlyLoggedUser().getEmail());
         //Update Policy Use Case Simulation
-
         controller.updatePolicy(1, "premium gold", 10000D);
 
         //Buy Policy Use Case Simulation
         controller.buyPolicy(controller.getPolicyById(1));
-        //controller.renewPolicy(p1);
 
         controller.closeDBSession();
     }
