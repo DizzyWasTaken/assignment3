@@ -6,9 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
 public class Database {
@@ -149,31 +146,13 @@ public class Database {
         }
     }
 
-    public void clearUsers(){
-        Transaction transaction = null;
-
-        try (Session session = getSession()){
-            transaction = session.beginTransaction();
-
-            //session.createQuery("delete from User").executeUpdate();
-
-            session.createNativeQuery("TRUNCATE TABLE users").executeUpdate();
-
-            transaction.commit();
-        }
-        catch (final HibernateException e){
-            transaction.rollback();
-            e.printStackTrace();
-        }
-    }
-
     //END USER MANAGEMENT METHODS
 
     //START POLICY MANAGEMENT METHODS
 
-    public Long savePolicy(final String description, final double cost){
+    public Integer savePolicy(final String description, final double cost){
         Transaction transaction = null;
-        Long id                 = null;
+        Integer id                 = null;
 
         try (Session session = getSession()){
             transaction = session.beginTransaction();
@@ -181,7 +160,7 @@ public class Database {
             final Policy policy = new Policy();
             policy.setDescription(description);
             policy.setCost(cost);
-            id = (Long) session.save(policy);
+            id = (Integer) session.save(policy);
 
             transaction.commit();
         }
@@ -193,7 +172,7 @@ public class Database {
         return id;
     }
 
-    public Policy getPolicyById(final Long id){
+    public Policy getPolicyById(final Integer id){
         Transaction transaction = null;
         Policy policy           = null;
 
@@ -236,7 +215,7 @@ public class Database {
 
     }
 
-    public void updatePolicy(final Long id, final String description, final Double cost){
+    public void updatePolicy(final Integer id, final String description, final Double cost){
         Transaction transaction = null;
 
         try (Session session = getSession()){                       //The session is closed before the catch statement.
@@ -279,28 +258,6 @@ public class Database {
                 transaction.rollback();
                 e.printStackTrace();
             }
-        }
-    }
-
-
-    public void clearPolicy(){
-        Transaction transaction = null;
-
-        try (Session session = getSession()){
-            transaction = session.beginTransaction();
-
-            //session.createQuery("delete from Policy").executeUpdate();
-
-            session.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();        //You can't delete a table
-                                                                                              //with constrains, so we disable the checks
-            session.createNativeQuery("TRUNCATE TABLE policies").executeUpdate();
-            session.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
-
-            transaction.commit();
-        }
-        catch (final HibernateException e){
-            transaction.rollback();
-            e.printStackTrace();
         }
     }
 

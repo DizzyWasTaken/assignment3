@@ -10,7 +10,8 @@ public class Policy {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private Integer id;
+    //Long type creates a BIGINT id and it's way too big to be used as id
 
     @Column(name = "description")
     private String description;
@@ -31,7 +32,7 @@ public class Policy {
         this.cost = cost;
     }
 
-    public Long getId(){
+    public Integer getId(){
         return id;
     }
 

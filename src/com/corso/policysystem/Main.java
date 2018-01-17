@@ -8,8 +8,6 @@ public class Main {
         Database    db          = new Database();
         Controller  controller  = new Controller(company, db);
 
-        controller.resetDB();
-
         //Inserting Policies
         controller.insertPolicy("cheap", 10);
         controller.insertPolicy("business", 100);
@@ -25,10 +23,10 @@ public class Main {
         //System.out.println("Email: " + controller.getCurrentlyLoggedUser().getEmail());
         //Update Policy Use Case Simulation
 
-        controller.updatePolicy(1L, "premium gold", 10000D);
+        controller.updatePolicy(1, "premium gold", 10000D);
 
         //Buy Policy Use Case Simulation
-        controller.buyPolicy(controller.getPolicyById(1L));
+        controller.buyPolicy(controller.getPolicyById(1));
         //controller.renewPolicy(p1);
 
         controller.closeDBSession();

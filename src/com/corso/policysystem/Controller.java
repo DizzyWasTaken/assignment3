@@ -56,11 +56,11 @@ public class Controller {
         db.savePolicy(description, cost);
     }
 
-    public Policy getPolicyById(Long id){
+    public Policy getPolicyById(Integer id){
         return db.getPolicyById(id);
     }
 
-    public void updatePolicy(Long id, String description, Double cost){
+    public void updatePolicy(Integer id, String description, Double cost){
         db.updatePolicy(id, description, cost);
     }
 
@@ -99,11 +99,6 @@ public class Controller {
                 .setTitle("New policy renewal application")
                 .setContent("Policy id: "+policy.getId()+"\nPolicy description: "+policy.getDescription())
                 .sendTo(company);
-    }
-
-    public void resetDB(){
-        db.clearUsers();
-        db.clearPolicy();
     }
 
     public void closeDBSession(){

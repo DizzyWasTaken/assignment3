@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User extends Notifiable{
 
     @Id
-    @Column(name = "email")
+    @Column(name = "email", length = 100)   //If the length is left 255 then it can't be a primary key
     private String email;
 
     @Column(name = "password", nullable = false)
