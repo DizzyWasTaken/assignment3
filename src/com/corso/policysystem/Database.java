@@ -39,15 +39,16 @@ public class Database {
     }
 
     //START USER MANAGEMENT METHODS
-    public String saveUser(final String email, final String password){
+    public User saveUser(final String email, final String password){
         Transaction transaction = null;
+        User user = null;
 
         try (Session session = getSession()) {           //It's a try with resources, the resource between parenthesis
             // will be closed regardless of the try-catch outcome
             try {
                 transaction = session.beginTransaction();
 
-                final User user = new User();
+                user = new User();
                 user.setEmail(email);
                 user.setPassword(password);
                 user.setPolicy(null);
@@ -60,7 +61,7 @@ public class Database {
             }
         }
 
-        return email;
+        return user;
     }
 
     public User getUserByEmail(final String email){
@@ -72,7 +73,7 @@ public class Database {
                 transaction = session.beginTransaction();
 
                 user = session.get(User.class, email);      //get is useful for retrieving objects by id. if no
-                // object is found it returns null
+                                                            // object is found it returns null
             } catch (final HibernateException e) {
                 transaction.rollback();
                 e.printStackTrace();
@@ -114,14 +115,15 @@ public class Database {
 
     }
 
-    public void updateUserPolicy(final String email, final Policy policy){
+    public User updateUserPolicy(final String email, final Policy policy){
         Transaction transaction = null;
+        User user = null;
 
         try (Session session = getSession()) {
             try {
                 transaction = session.beginTransaction();
 
-                final User user = session.get(User.class, email);
+                user = session.get(User.class, email);
                 user.setPolicy(policy);
 
                 transaction.commit();
@@ -130,6 +132,7 @@ public class Database {
                 e.printStackTrace();
             }
         }
+        return user;
     }
 
     public void deleteUser(final String email){
@@ -250,7 +253,7 @@ public class Database {
         }
     }
 
-    public void deletePolicy(final Long id){
+    public void deletePolicy(final Integer id){
         Transaction transaction = null;
 
         try (Session session = getSession()) {

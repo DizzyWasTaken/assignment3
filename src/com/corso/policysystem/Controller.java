@@ -16,8 +16,7 @@ public class Controller {
     //User management
     public void registerUser(String email, String password){
         if(db.getUserByEmail(email) == null) {
-            db.saveUser(email, password);
-            setCurrentlyLoggedUser(db.getUserByEmail(email));
+            setCurrentlyLoggedUser(db.saveUser(email, password));
         }
         else{
             System.out.println("Email already in use");
@@ -46,7 +45,7 @@ public class Controller {
         db.updatePolicy(id, description, cost);
     }
 
-    public void removePolicy(Long id){
+    public void removePolicy(Integer id){
         db.deletePolicy(id);
     }
 
@@ -54,7 +53,7 @@ public class Controller {
         //Buy policy logic
 
         db.listUsers();
-        db.updateUserPolicy(currentlyLoggedUser.getEmail(), policy);
+        setCurrentlyLoggedUser(db.updateUserPolicy(currentlyLoggedUser.getEmail(), policy));
         db.listUsers();
 
         Notification.prepare()
